@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yapas - ¡Volvió la yapa al barrio!</title>
+    <link rel="icon" type="image/x-icon" href="./resources/images/favicon.ico">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Fredoka -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body class="bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300">
+
+    <!-- Header Glassmorphism -->
+    <header
+        class="w-full py-4 px-6 md:px-12 flex justify-between items-center sticky top-0 z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-gray-100 dark:border-slate-800 transition-colors duration-300">
+        <!-- Logo -->
+        <div class="flex items-center gap-2 cursor-pointer group">
+            <!-- Logo para Modo Claro (Se oculta en modo oscuro) -->
+            <img src="./resources/images/isologo.png" alt="Yapas Logo"
+                class="h-10 group-hover:scale-105 transition-transform block dark:hidden">
+
+            <!-- Logo para Modo Oscuro (Se oculta por defecto, se muestra en modo oscuro) -->
+            <img src="./resources/images/isologo_alt.png" alt="Yapas Logo"
+                class="h-10 group-hover:scale-105 transition-transform hidden dark:block">
+        </div>
+
+        <!-- Desktop Nav Links -->
+        <nav class="hidden md:flex gap-8 text-base font-medium text-slate-600 dark:text-slate-300">
+            <a href="#como-funciona" class="hover:text-yapas-blue dark:hover:text-yapas-blue transition-colors">Cómo
+                Funciona</a>
+            <a href="#planes" class="hover:text-yapas-blue dark:hover:text-yapas-blue transition-colors">Planes</a>
+            <a href="#faq" class="hover:text-yapas-blue dark:hover:text-yapas-blue transition-colors">Preguntas
+                Frecuentes</a>
+        </nav>
+
+        <!-- CTA & Dark Mode Toggle -->
+        <div class="flex items-center gap-4">
+            <button id="theme-toggle" type="button"
+                class="text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full text-sm p-2.5 transition-colors focus:outline-none focus:ring-2 focus:ring-yapas-blue">
+                <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                </svg>
+                <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.22 2.32a1 1 0 011.415 0l.707.707a1 1 0 01-1.414 1.415l-.707-.707a1 1 0 010-1.415zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zm-2.32 4.22a1 1 0 010 1.415l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.415 0zM10 16a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zm-4.22-2.32a1 1 0 01-1.415 0l-.707-.707a1 1 0 011.414-1.415l.707.707a1 1 0 010 1.415zM3 10a1 1 0 01-1 1H1a1 1 0 110-2h1a1 1 0 011 1zm2.32-4.22a1 1 0 010-1.415l-.707-.707a1 1 0 011.414-1.415l.707.707a1 1 0 01-1.415 0zM10 5a5 5 0 100 10 5 5 0 000-10z"
+                        fill-rule="evenodd" clip-rule="evenodd"></path>
+                </svg>
+            </button>
+
+            <a href="#"
+                class="bg-yapas-blue hover:bg-blue-500 text-white font-semibold py-2 px-5 md:px-6 rounded-xl shadow-lg shadow-yapas-blue/30 transition-all duration-300">
+                Ingresar
+            </a>
+        </div>
+    </header>
+
+    <main class="w-full px-4 md:px-8 max-w-7xl mx-auto mt-8 mb-24">
+
+        <!-- Hero Interactive Box -->
+        <div
+            class="bg-slate-50 dark:bg-slate-900/50 rounded-[2.5rem] p-8 md:p-12 lg:p-16 flex flex-col lg:flex-row items-center gap-12 relative overflow-hidden border border-slate-100 dark:border-slate-800 transition-colors duration-300 shadow-xl shadow-slate-200/50 dark:shadow-none">
+
+            <!-- Left Content (Text, Checks & CTA) -> Pasa abajo en celular (order-2), vuelve a la izquierda en PC (lg:order-1) -->
+            <div class="w-full lg:w-1/2 flex flex-col items-start z-10 order-2 lg:order-1">
+
+                <!-- Modern Toggle Pill -->
+                <div
+                    class="bg-white dark:bg-slate-800 p-1.5 rounded-full inline-flex mb-8 border border-slate-200 dark:border-slate-700 shadow-sm backdrop-blur-sm">
+                    <button id="btn-vecinos"
+                        class="toggle-btn flex items-center gap-2 py-2.5 px-6 rounded-full text-base font-semibold transition-all duration-300 bg-yapas-orange text-white shadow-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
+                        Para Vecinos
+                    </button>
+                    <button id="btn-comercios"
+                        class="toggle-btn flex items-center gap-2 py-2.5 px-6 rounded-full text-base font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z" />
+                            <path d="m3 9 2.45-4.9A2 2 0 0 1 7.24 3h9.52a2 2 0 0 1 1.8 1.1L21 9" />
+                            <path d="M12 3v6" />
+                        </svg>
+                        Para Locales
+                    </button>
+                </div>
+
+                <!-- Dynamic Text Content -->
+                <div id="hero-content" class="min-h-[250px]">
+                    <h1 id="hero-title"
+                        class="text-4xl lg:text-5xl xl:text-6xl font-bold text-slate-900 dark:text-white leading-[1.1] mb-6 tracking-tight">
+                        ¡Volvió la yapa al barrio!
+                    </h1>
+                    <p id="hero-desc"
+                        class="text-slate-600 dark:text-slate-400 text-lg mb-8 leading-relaxed max-w-xl font-medium">
+                        Comprá en tus locales de siempre, sumá puntos y canjealos por premios. Ayudá a crecer a los
+                        comercios de tu zona mientras ahorrás en tus compras diarias.
+                    </p>
+
+                    <ul id="hero-checks" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+                        <!-- Populated by JS -->
+                    </ul>
+                </div>
+
+                <a href="#"
+                    class="bg-yapas-orange hover:bg-[#e67a16] text-white font-semibold py-3.5 px-8 rounded-xl shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:-translate-y-0.5 transition-all duration-300 flex items-center gap-2 text-lg w-full justify-center md:w-auto">
+                    Descargar App <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M5 12h14" />
+                        <path d="m12 5 7 7-7 7" />
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Right Content (Image & Floating Card) -> Pasa arriba en celular (order-1), vuelve a la derecha en PC (lg:order-2) -->
+            <div class="w-full lg:w-1/2 relative flex justify-center lg:justify-end z-10 order-1 lg:order-2">
+                <div
+                    class="absolute inset-0 bg-gradient-to-tr from-yapas-orange/20 to-transparent dark:from-yapas-orange/10 rounded-[2rem] transform translate-x-6 translate-y-6">
+                </div>
+
+                <!-- Mascota Gato -->
+                <img src="./resources/images/hero_image.jpeg" alt="Hero Yapas"
+                    class="relative rounded-[2rem] object-cover shadow-xl dark:shadow-none h-[380px] sm:h-[480px] w-full max-w-[600px] border-4 border-white dark:border-slate-800 bg-white">
+
+                <!-- Floating Card -->
+                <div id="floating-card"
+                    class="absolute bottom-4 sm:bottom-8 left-[-10px] sm:left-[-40px] bg-white/95 dark:bg-slate-800/95 backdrop-blur-md rounded-2xl shadow-2xl p-4 sm:p-5 flex items-center gap-4 border border-white/50 dark:border-slate-700 max-w-[280px] sm:max-w-[340px] transition-all duration-500 hover:scale-105">
+                    <div id="float-icon-bg"
+                        class="bg-orange-100 dark:bg-orange-500/20 p-3.5 rounded-xl text-yapas-orange">
+                        <svg id="float-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 12 20 22 4 22 4 12" />
+                            <rect width="20" height="5" x="2" y="7" />
+                            <line x1="12" x2="12" y1="22" y2="7" />
+                            <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" />
+                            <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 id="float-title" class="font-bold text-slate-900 dark:text-white text-sm sm:text-base">
+                            +1.000 Puntos Ganados</h4>
+                        <p id="float-desc"
+                            class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-tight mt-1 font-medium">
+                            ¡Canjeables en tu café de San Justo o tu verdulería amiga!</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Sección de Insignias (Gamificación) -->
+    <section id="insignias"
+        class="py-16 bg-white dark:bg-slate-950 transition-colors duration-300 border-t border-slate-100 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="text-center mb-14">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
+                    ¡Coleccioná todas las insignias!</h2>
+                <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto font-medium">Cada compra, cada
+                    giro y cada local nuevo que descubrís te da una chapa nueva. Sumá logros en tu perfil y demostrá tu
+                    aguante por el barrio.</p>
+            </div>
+
+            <!-- Grilla de insignias -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-6 gap-y-10 text-center">
+
+                <!-- Insignia 1 -->
+                <div class="flex flex-col items-center group cursor-pointer">
+                    <div
+                        class="w-24 h-24 rounded-full bg-orange-100 dark:bg-orange-500/20 flex items-center justify-center text-yapas-orange mb-4 group-hover:scale-110 group-hover:shadow-lg transition-all duration-300 border-4 border-white dark:border-slate-800 shadow-sm relative">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+                            <path d="M3 6h18" />
+                            <path d="M16 10a4 4 0 0 1-8 0" />
+                        </svg>
+                    </div>
+                    <h4 class="font-bold text-slate-900 dark:text-white text-lg mb-1 leading-tight">Primera Compra</h4>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 font-medium px-2">Por romper el hielo y usar
+                        Yapas por primera vez.</p>
+                </div>
+
+                <!-- Insignia 2 -->
+                <div class="flex flex-col items-center group cursor-pointer">
+                    <div
+                        class="w-24 h-24 rounded-full bg-blue-100 dark:bg-blue-500/20 flex items-center justify-center text-yapas-blue mb-4 group-hover:scale-110 group-hover:shadow-lg transition-all duration-300 border-4 border-white dark:border-slate-800 shadow-sm relative">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M12 2v20" />
+                            <path d="M2 12h20" />
+                            <path d="m4.93 4.93 14.14 14.14" />
+                            <path d="m19.07 4.93-14.14 14.14" />
+                        </svg>
+                    </div>
+                    <h4 class="font-bold text-slate-900 dark:text-white text-lg mb-1 leading-tight">Rueda de la Fortuna
+                    </h4>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 font-medium px-2">Por animarte a girar la
+                        ruleta y probar tu suerte.</p>
+                </div>
+
+                <!-- Insignia 3 -->
+                <div class="flex flex-col items-center group cursor-pointer">
+                    <div
+                        class="w-24 h-24 rounded-full bg-green-100 dark:bg-green-500/20 flex items-center justify-center text-yapas-green mb-4 group-hover:scale-110 group-hover:shadow-lg transition-all duration-300 border-4 border-white dark:border-slate-800 shadow-sm relative">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                            <circle cx="12" cy="10" r="3" />
+                        </svg>
+                    </div>
+                    <h4 class="font-bold text-slate-900 dark:text-white text-lg mb-1 leading-tight">Explorador Barrial
+                    </h4>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 font-medium px-2">Por visitar y comprar en 3
+                        comercios diferentes.</p>
+                </div>
+
+                <!-- Insignia 4 -->
+                <div class="flex flex-col items-center group cursor-pointer">
+                    <div
+                        class="w-24 h-24 rounded-full bg-orange-100 dark:bg-orange-500/20 flex items-center justify-center text-yapas-orange mb-4 group-hover:scale-110 group-hover:shadow-lg transition-all duration-300 border-4 border-white dark:border-slate-800 shadow-sm relative">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon
+                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                        </svg>
+                    </div>
+                    <h4 class="font-bold text-slate-900 dark:text-white text-lg mb-1 leading-tight">Cliente de Fierro
+                    </h4>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 font-medium px-2">Por acumular tus primeros
+                        1.000 puntos Yapas.</p>
+                </div>
+
+                <!-- Insignia 5 -->
+                <div class="flex flex-col items-center group cursor-pointer">
+                    <div
+                        class="w-24 h-24 rounded-full bg-purple-100 dark:bg-purple-500/20 flex items-center justify-center text-purple-600 dark:text-purple-400 mb-4 group-hover:scale-110 group-hover:shadow-lg transition-all duration-300 border-4 border-white dark:border-slate-800 shadow-sm relative">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                            <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                        </svg>
+                    </div>
+                    <h4 class="font-bold text-slate-900 dark:text-white text-lg mb-1 leading-tight">El Buen Vecino</h4>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 font-medium px-2">Por invitar a un amigo a
+                        unirse a la comunidad.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="como-funciona" class="py-20 bg-white dark:bg-slate-900 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight">Armamos
+                    una comunidad, no solo una app</h2>
+                <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto font-medium">Conectamos a los
+                    almacenes, kioscos y farmacias con los vecinos de siempre. Así todos ganan.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Card 1 -->
+                <div
+                    class="bg-slate-50 dark:bg-slate-800 p-8 rounded-3xl shadow-sm hover:-translate-y-2 hover:shadow-xl transition-all duration-300 border border-slate-100 dark:border-slate-700">
+                    <div
+                        class="bg-green-100 dark:bg-green-500/20 w-14 h-14 rounded-2xl flex items-center justify-center text-yapas-green mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2v20" />
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 dark:text-white">Jugá y Ganá</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-medium">Puntos válidos en
+                        cualquier local, niveles para desbloquear premios y ruletas semanales para divertirte sumando.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div
+                    class="bg-slate-50 dark:bg-slate-800 p-8 rounded-3xl shadow-sm hover:-translate-y-2 hover:shadow-xl transition-all duration-300 border border-slate-100 dark:border-slate-700">
+                    <div
+                        class="bg-blue-100 dark:bg-blue-500/20 w-14 h-14 rounded-2xl flex items-center justify-center text-yapas-blue mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 3v18h18" />
+                            <path d="m19 9-5 5-4-4-3 3" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 dark:text-white">Conocé a tus clientes</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-medium">Olvidate de las
+                        planillas complicadas. Te avisamos si un cliente dejó de venir para que le ofrezcas una promo y
+                        vuelva.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div
+                    class="bg-slate-50 dark:bg-slate-800 p-8 rounded-3xl shadow-sm hover:-translate-y-2 hover:shadow-xl transition-all duration-300 border border-slate-100 dark:border-slate-700">
+                    <div
+                        class="bg-orange-100 dark:bg-orange-500/20 w-14 h-14 rounded-2xl flex items-center justify-center text-yapas-orange mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="10" r="3" />
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 dark:text-white">Descubrí tu barrio</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-medium">Un mapa súper
+                        fácil de usar para ver qué locales cerca tuyo tienen ofertas, descuentos o aceptan puntos Yapas.
+                    </p>
+                </div>
+
+                <!-- Card 4 -->
+                <div
+                    class="bg-slate-50 dark:bg-slate-800 p-8 rounded-3xl shadow-sm hover:-translate-y-2 hover:shadow-xl transition-all duration-300 border border-slate-100 dark:border-slate-700">
+                    <div
+                        class="bg-purple-100 dark:bg-purple-500/20 w-14 h-14 rounded-2xl flex items-center justify-center text-purple-600 dark:text-purple-400 mb-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                            <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 dark:text-white">Promos en equipo</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed font-medium">¿Tenés una
+                        panadería? Armá un descuento cruzado con la fiambrería de la esquina y dupliquen sus ventas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="planes" class="py-24 bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight">Planes
+                    claros, sin letra chica</h2>
+                <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto font-medium">Elegí lo que mejor
+                    se adapte a vos. Seas vecino o comerciante, empezar en Yapas es fácil.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+
+                <!-- B2C Table (Vecinos) -->
+                <div>
+                    <h3
+                        class="text-2xl font-bold mb-8 text-center text-yapas-orange flex items-center justify-center gap-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
+                        Para los Vecinos
+                    </h3>
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <!-- Plan Vecino Free -->
+                        <div
+                            class="flex-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 shadow-sm hover:shadow-md transition">
+                            <h4 class="text-xl font-bold text-slate-900 dark:text-white">App Gratuita</h4>
+                            <div class="text-4xl font-bold my-6 dark:text-white">Siempre</div>
+                            <ul class="space-y-4 text-sm text-slate-600 dark:text-slate-400 font-medium">
+                                <li class="flex items-start gap-3"><svg
+                                        class="text-yapas-orange w-5 h-5 flex-shrink-0 mt-0.5" fill="none"
+                                        stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                                        <path d="M5 13l4 4L19 7"></path>
+                                    </svg>Sumá y canjeá puntos</li>
+                                <li class="flex items-start gap-3"><svg
+                                        class="text-yapas-orange w-5 h-5 flex-shrink-0 mt-0.5" fill="none"
+                                        stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                                        <path d="M5 13l4 4L19 7"></path>
+                                    </svg>Participá de tu nivel barrial</li>
+                                <li class="flex items-start gap-3"><svg
+                                        class="text-yapas-orange w-5 h-5 flex-shrink-0 mt-0.5" fill="none"
+                                        stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                                        <path d="M5 13l4 4L19 7"></path>
+                                    </svg>1 tiro semanal en la ruleta</li>
+                            </ul>
+                        </div>
+                        <!-- Plan Vecino VIP -->
+                        <div
+                            class="flex-1 bg-gradient-to-b from-orange-50 to-white dark:from-slate-800 dark:to-slate-900 border-2 border-yapas-orange rounded-3xl p-8 shadow-xl shadow-orange-100 dark:shadow-none relative transform md:-translate-y-4">
+                            <div
+                                class="absolute top-0 right-0 bg-yapas-orange text-white text-xs font-bold px-4 py-1.5 rounded-bl-2xl rounded-tr-2xl tracking-wider">
+                                MÁS PEDIDO</div>
+                            <h4 class="text-xl font-bold text-slate-900 dark:text-white">Club Yapas</h4>
+                            <div class="text-xl font-semibold text-slate-500 dark:text-slate-400 my-6">Micropago mensual
+                            </div>
+                            <ul class="space-y-4 text-sm text-slate-600 dark:text-slate-300 font-medium">
+                                <li class="flex items-start gap-3"><svg
+                                        class="text-yapas-orange w-5 h-5 flex-shrink-0 mt-0.5" fill="none"
+                                        stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                                        <path d="M5 13l4 4L19 7"></path>
+                                    </svg>Multiplicá tus puntos x2</li>
+                                <li class="flex items-start gap-3"><svg
+                                        class="text-yapas-orange w-5 h-5 flex-shrink-0 mt-0.5" fill="none"
+                                        stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                                        <path d="M5 13l4 4L19 7"></path>
+                                    </svg>Tiros extra para jugar</li>
+                                <li class="flex items-start gap-3"><svg
+                                        class="text-yapas-orange w-5 h-5 flex-shrink-0 mt-0.5" fill="none"
+                                        stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                                        <path d="M5 13l4 4L19 7"></path>
+                                    </svg>Cero publicidad en la app</li>
+                            </ul>
+                            <button
+                                class="w-full mt-8 bg-yapas-orange hover:bg-[#e67a16] text-white font-semibold py-3 rounded-xl transition-colors">Suscribirme</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- B2B Table (Comercios) -->
+                <div>
+                    <h3
+                        class="text-2xl font-bold mb-8 text-center text-slate-900 dark:text-white flex items-center justify-center gap-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z" />
+                            <path d="m3 9 2.45-4.9A2 2 0 0 1 7.24 3h9.52a2 2 0 0 1 1.8 1.1L21 9" />
+                            <path d="M12 3v6" />
+                        </svg>
+                        Para los Locales
+                    </h3>
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <!-- Plan Comercio Free -->
+                        <div
+                            class="flex-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 shadow-sm hover:shadow-md transition">
+                            <h4 class="text-xl font-bold text-slate-900 dark:text-white">Plan Arranque</h4>
+                            <div class="text-4xl font-bold my-6 dark:text-white">Gratis</div>
+                            <ul class="space-y-4 text-sm text-slate-600 dark:text-slate-400 font-medium">
+                                <li class="flex items-start gap-3"><svg
+                                        class="text-yapas-blue w-5 h-5 flex-shrink-0 mt-0.5" fill="none"
+                                        stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                                        <path d="M5 13l4 4L19 7"></path>
+                                    </svg>Aparecé en el mapa barrial</li>
+                                <li class="flex items-start gap-3"><svg
+                                        class="text-yapas-blue w-5 h-5 flex-shrink-0 mt-0.5" fill="none"
+                                        stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                                        <path d="M5 13l4 4L19 7"></path>
+                                    </svg>Perfil con fotos y horarios</li>
+                                <li class="flex items-start gap-3"><svg
+                                        class="text-yapas-blue w-5 h-5 flex-shrink-0 mt-0.5" fill="none"
+                                        stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                                        <path d="M5 13l4 4L19 7"></path>
+                                    </svg>Cuentas para tus empleados</li>
+                            </ul>
+                        </div>
+                        <!-- Plan Comercio Pro -->
+                        <div
+                            class="flex-1 bg-white dark:bg-slate-800 border-2 border-yapas-blue rounded-3xl p-8 shadow-xl shadow-slate-200/50 dark:shadow-none relative transform md:-translate-y-4">
+                            <h4 class="text-xl font-bold text-slate-900 dark:text-white">Comercio Pro</h4>
+                            <div class="text-xl font-semibold text-slate-500 dark:text-slate-300 my-6">Suscripción
+                                mensual</div>
+                            <ul class="space-y-4 text-sm text-slate-700 dark:text-slate-200 font-medium">
+                                <li class="flex items-start gap-3"><svg
+                                        class="text-yapas-blue w-5 h-5 flex-shrink-0 mt-0.5" fill="none"
+                                        stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                                        <path d="M5 13l4 4L19 7"></path>
+                                    </svg>Estadísticas de tus clientes</li>
+                                <li class="flex items-start gap-3"><svg
+                                        class="text-yapas-blue w-5 h-5 flex-shrink-0 mt-0.5" fill="none"
+                                        stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                                        <path d="M5 13l4 4L19 7"></path>
+                                    </svg>Avisos al celular (Push)</li>
+                                <li class="flex items-start gap-3"><svg
+                                        class="text-yapas-blue w-5 h-5 flex-shrink-0 mt-0.5" fill="none"
+                                        stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                                        <path d="M5 13l4 4L19 7"></path>
+                                    </svg>Promociones junto a otros</li>
+                            </ul>
+                            <a href="#contacto"
+                                class="block text-center w-full mt-8 bg-yapas-blue text-white font-semibold py-3 rounded-xl hover:bg-blue-500 transition-colors">Potenciar
+                                mi local</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Formulario de Contacto (Item 6) -->
+    <section id="contacto"
+        class="py-20 bg-yapas-blue/5 dark:bg-slate-900 transition-colors duration-300 border-t border-slate-100 dark:border-slate-800">
+        <div class="max-w-4xl mx-auto px-4 md:px-8 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">¿Tenés un
+                local y querés sumarte?</h2>
+            <p class="text-lg text-slate-600 dark:text-slate-400 mb-10 font-medium">Dejanos tus datos y te contactamos
+                por WhatsApp para coordinar una demo gratuita sin compromiso.</p>
+
+            <form
+                class="bg-white dark:bg-slate-800 p-8 md:p-10 rounded-[2rem] shadow-xl border border-slate-100 dark:border-slate-700 text-left relative overflow-hidden">
+                <!-- Decorative background elements -->
+                <div
+                    class="absolute top-0 right-0 w-32 h-32 bg-yapas-blue/5 rounded-full blur-2xl transform translate-x-10 -translate-y-10">
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 relative z-10">
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Tu
+                            Nombre</label>
+                        <input type="text"
+                            class="w-full px-5 py-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-yapas-blue/50 focus:border-yapas-blue dark:text-white transition-all"
+                            placeholder="Ej: Juan Pérez">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Nombre del
+                            Local</label>
+                        <input type="text"
+                            class="w-full px-5 py-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-yapas-blue/50 focus:border-yapas-blue dark:text-white transition-all"
+                            placeholder="Ej: Kiosco El Sol">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Número de
+                            WhatsApp</label>
+                        <input type="tel"
+                            class="w-full px-5 py-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-yapas-blue/50 focus:border-yapas-blue dark:text-white transition-all"
+                            placeholder="+54 9 11 ...">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Mensaje
+                            (Opcional)</label>
+                        <textarea rows="3"
+                            class="w-full px-5 py-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-yapas-blue/50 focus:border-yapas-blue dark:text-white transition-all resize-none"
+                            placeholder="Contanos qué tipo de comercio tenés o si tenés alguna duda puntual..."></textarea>
+                    </div>
+                </div>
+                <button type="button"
+                    class="relative z-10 w-full bg-yapas-blue hover:bg-blue-500 text-white font-bold py-4 rounded-xl transition-all duration-300 shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 hover:-translate-y-0.5 text-lg">
+                    Solicitar Demo Gratuita
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Sección Preguntas Frecuentes (Item 3) -->
+    <section id="faq" class="py-20 bg-white dark:bg-slate-950 transition-colors duration-300">
+        <div class="max-w-4xl mx-auto px-4 md:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">Preguntas
+                    Frecuentes</h2>
+                <p class="text-lg text-slate-600 dark:text-slate-400 font-medium">Todo lo que necesitás saber sobre
+                    Yapas, sin vueltas.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+
+                <!-- FAQ Vecinos -->
+                <div class="space-y-4">
+                    <h3
+                        class="text-xl font-bold text-yapas-orange mb-6 flex items-center gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg>
+                        Dudas de Vecinos
+                    </h3>
+
+                    <details
+                        class="group bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 [&_summary::-webkit-details-marker]:hidden hover:shadow-md transition-shadow">
+                        <summary
+                            class="flex cursor-pointer items-center justify-between gap-1.5 p-5 font-semibold text-slate-900 dark:text-white">
+                            ¿Los puntos Yapas tienen vencimiento?
+                            <svg class="h-5 w-5 shrink-0 transition duration-300 group-open:-rotate-180 text-yapas-orange"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </summary>
+                        <div class="px-5 pb-5 text-sm text-slate-600 dark:text-slate-400 font-medium leading-relaxed">
+                            Los puntos no vencen mientras mantengas tu cuenta activa usando la app (sumando o canjeando)
+                            al menos una vez cada 6 meses.
+                        </div>
+                    </details>
+
+                    <details
+                        class="group bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 [&_summary::-webkit-details-marker]:hidden hover:shadow-md transition-shadow">
+                        <summary
+                            class="flex cursor-pointer items-center justify-between gap-1.5 p-5 font-semibold text-slate-900 dark:text-white">
+                            ¿Cómo escaneo el código en el local?
+                            <svg class="h-5 w-5 shrink-0 transition duration-300 group-open:-rotate-180 text-yapas-orange"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </summary>
+                        <div class="px-5 pb-5 text-sm text-slate-600 dark:text-slate-400 font-medium leading-relaxed">
+                            Es muy simple: abrís la app, tocás el botón central de la cámara y apuntás al código QR que
+                            el comercio tiene en su mostrador o en el ticket.
+                        </div>
+                    </details>
+
+                    <details
+                        class="group bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 [&_summary::-webkit-details-marker]:hidden hover:shadow-md transition-shadow">
+                        <summary
+                            class="flex cursor-pointer items-center justify-between gap-1.5 p-5 font-semibold text-slate-900 dark:text-white">
+                            ¿Puedo canjear puntos en un local distinto?
+                            <svg class="h-5 w-5 shrink-0 transition duration-300 group-open:-rotate-180 text-yapas-orange"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </summary>
+                        <div class="px-5 pb-5 text-sm text-slate-600 dark:text-slate-400 font-medium leading-relaxed">
+                            ¡Sí! Esa es la magia de Yapas. Los puntos que sumás en la verdulería los podés usar
+                            tranquilamente para pagar el café en la panadería de la otra cuadra.
+                        </div>
+                    </details>
+                </div>
+
+                <!-- FAQ Comercios -->
+                <div class="space-y-4">
+                    <h3
+                        class="text-xl font-bold text-yapas-blue mb-6 flex items-center gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z" />
+                            <path d="m3 9 2.45-4.9A2 2 0 0 1 7.24 3h9.52a2 2 0 0 1 1.8 1.1L21 9" />
+                            <path d="M12 3v6" />
+                        </svg>
+                        Dudas de Locales
+                    </h3>
+
+                    <details
+                        class="group bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 [&_summary::-webkit-details-marker]:hidden hover:shadow-md transition-shadow">
+                        <summary
+                            class="flex cursor-pointer items-center justify-between gap-1.5 p-5 font-semibold text-slate-900 dark:text-white">
+                            ¿Necesito algún dispositivo especial?
+                            <svg class="h-5 w-5 shrink-0 transition duration-300 group-open:-rotate-180 text-yapas-blue"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </summary>
+                        <div class="px-5 pb-5 text-sm text-slate-600 dark:text-slate-400 font-medium leading-relaxed">
+                            Para nada. Podés gestionar todo tu comercio desde cualquier celular, tablet o computadora
+                            conectada a internet. Nosotros te generamos tu código QR para imprimir y poner a la vista.
+                        </div>
+                    </details>
+
+                    <details
+                        class="group bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 [&_summary::-webkit-details-marker]:hidden hover:shadow-md transition-shadow">
+                        <summary
+                            class="flex cursor-pointer items-center justify-between gap-1.5 p-5 font-semibold text-slate-900 dark:text-white">
+                            ¿Cómo integro a mis empleados al sistema?
+                            <svg class="h-5 w-5 shrink-0 transition duration-300 group-open:-rotate-180 text-yapas-blue"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </summary>
+                        <div class="px-5 pb-5 text-sm text-slate-600 dark:text-slate-400 font-medium leading-relaxed">
+                            Desde tu panel de control podés crear cuentas secundarias para quienes atienden el
+                            mostrador. Ellos solo van a poder registrar ventas y validar puntos, pero tus estadísticas
+                            financieras quedan 100% privadas.
+                        </div>
+                    </details>
+
+                    <details
+                        class="group bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 [&_summary::-webkit-details-marker]:hidden hover:shadow-md transition-shadow">
+                        <summary
+                            class="flex cursor-pointer items-center justify-between gap-1.5 p-5 font-semibold text-slate-900 dark:text-white">
+                            ¿Qué pasa si mi local se queda sin internet?
+                            <svg class="h-5 w-5 shrink-0 transition duration-300 group-open:-rotate-180 text-yapas-blue"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </summary>
+                        <div class="px-5 pb-5 text-sm text-slate-600 dark:text-slate-400 font-medium leading-relaxed">
+                            ¡No hay problema! El cliente igual puede escanear tu código QR impreso con sus datos
+                            móviles, y la transacción se procesa y sincroniza automáticamente en nuestros servidores.
+                        </div>
+                    </details>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Extendido (Item 7) -->
+    <footer
+        class="bg-slate-900 dark:bg-slate-950 text-slate-300 py-12 md:py-16 border-t border-slate-800 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 mb-12">
+
+                <!-- Brand Info -->
+                <div class="lg:col-span-1">
+                    <div class="flex items-center gap-2 cursor-pointer group">
+                        <!-- Logo para Modo Claro (Se oculta en modo oscuro) -->
+                        <img src="./resources/images/isologo_alt.png" alt="Yapas Logo"
+                            class="h-10 group-hover:scale-105 transition-transform block">
+
+                        <!-- Logo para Modo Oscuro (Se oculta por defecto, se muestra en modo oscuro) -->
+                        <img src="./resources/images/isologo_alt.png" alt="Yapas Logo"
+                            class="h-10 group-hover:scale-105 transition-transform hidden">
+                    </div>
+                    <p class="text-sm text-slate-400 font-medium leading-relaxed mb-6">
+                        Conectando a los vecinos de siempre con los comercios del barrio. Orgullosamente desarrollado y
+                        diseñado en San Justo.
+                    </p>
+                    <a href="#contacto"
+                        class="inline-flex items-center gap-2 text-yapas-orange font-semibold hover:text-orange-400 transition-colors">
+                        Escribinos por WhatsApp
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 12h14" />
+                            <path d="m12 5 7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-5">Plataforma</h4>
+                    <ul class="space-y-3 text-sm font-medium">
+                        <li><a href="#como-funciona" class="hover:text-yapas-orange transition-colors">Cómo funciona</a>
+                        </li>
+                        <li><a href="#planes" class="hover:text-yapas-blue transition-colors">Planes para Locales</a>
+                        </li>
+                        <li><a href="#insignias" class="hover:text-yapas-orange transition-colors">Sistema de
+                                Insignias</a></li>
+                        <li><a href="#faq" class="hover:text-white transition-colors">Preguntas Frecuentes</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-5">Legales</h4>
+                    <ul class="space-y-3 text-sm font-medium">
+                        <li><a href="#" class="hover:text-white transition-colors">Términos y Condiciones</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Política de Privacidad</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Bases y Condiciones (Ruleta)</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Protección de Datos</a></li>
+                    </ul>
+                </div>
+
+                <!-- Social & App Stores -->
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-5">Comunidad</h4>
+                    <div class="flex gap-3 mb-6">
+                        <a href="https://www.instagram.com/yapas.media/"
+                            class="bg-slate-800 p-2.5 rounded-full hover:bg-gradient-to-tr hover:from-yapas-orange hover:to-pink-500 hover:text-white transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+                            </svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/gentile-alan/"
+                            class="bg-slate-800 p-2.5 rounded-full hover:bg-[#0077b5] hover:text-white transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                                <rect width="4" height="12" x="2" y="9" />
+                                <circle cx="4" cy="4" r="2" />
+                            </svg>
+                        </a>
+                        <a href="https://x.com/SomosYapas"
+                            class="bg-slate-800 p-2.5 rounded-full hover:bg-[#1DA1F2] hover:text-white transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path
+                                    d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
+                            </svg>
+                        </a>
+                    </div>
+
+                    <!-- Falsos botones de Stores para dar legitimidad -->
+                    <div class="flex flex-col gap-3">
+                        <button
+                            class="bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg px-4 py-2 flex items-center gap-3 transition-colors w-full sm:w-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="currentColor">
+                                <path
+                                    d="M3.13 2.13a1.5 1.5 0 0 0-.63 1.25v17.24a1.5 1.5 0 0 0 .63 1.25l10.1-10.1-10.1-9.64zm10.9 10.45-1.55 1.55-9.33 9.33c.27.13.58.15.88.05l10.87-6.26-1.63-1.6-1.5-1.55-.94-.95 3.2-3.13zm1.18-1.18 3.42-3.42c.48-.48.48-1.28 0-1.76L5.38 1.48c-.28-.1-.58-.12-.85 0l13.68 13.68-1.54-1.54-3.59-3.59zM20.25 15.5l-4.56-4.56L18 8.61l2.25 1.3c.96.55.96 1.94 0 2.49l-2.25 1.3z" />
+                            </svg>
+                            <div class="text-left">
+                                <div class="text-[10px] leading-tight text-slate-400">DISPONIBLE EN</div>
+                                <div class="text-sm font-semibold text-white leading-tight">Google Play</div>
+                            </div>
+                        </button>
+                        <button
+                            class="bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg px-4 py-2 flex items-center gap-3 transition-colors w-full sm:w-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="currentColor">
+                                <path
+                                    d="M16.36 14c.08-.02.14-.02.22-.04a7.99 7.99 0 0 0-3.66-6.66c-.04.02-.06.06-.1.08-1.46.7-3.08.76-4.66.1a6.4 6.4 0 0 0 1.26 1.76c1.6 1.56 3.84 2.14 5.98 1.48.2-.06.4-.14.6-.22.12.3.2.62.24.96.08 1.04-.1 2.06-.52 2.98l.64.12c.54-.86.82-1.92.74-3l-.74-2.56zm-4.78 4.28a7.08 7.08 0 0 1-5.18-1.94 7.28 7.28 0 0 1-2.02-4.8 7.36 7.36 0 0 1 2.38-5.46 7.18 7.18 0 0 1 5.06-1.8 7.32 7.32 0 0 1 4.7 1.86c.64.56 1.18 1.24 1.56 2l-1.6 1.08a5.52 5.52 0 0 0-4.66-2.94 5.48 5.48 0 0 0-4.14 1.8 5.66 5.66 0 0 0-1.54 4 5.56 5.56 0 0 0 1.58 3.96 5.4 5.4 0 0 0 4 1.62c1.78 0 3.4-1.02 4.2-2.6l1.52.88a7.12 7.12 0 0 1-5.86 3.34zM15 1.5A4.5 4.5 0 0 0 11.5 3a4.5 4.5 0 0 0-1.5 3.5 4.5 4.5 0 0 0 3.5-1.5A4.5 4.5 0 0 0 15 1.5z" />
+                            </svg>
+                            <div class="text-left">
+                                <div class="text-[10px] leading-tight text-slate-400">Consíguelo en el</div>
+                                <div class="text-sm font-semibold text-white leading-tight">App Store</div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div
+                class="pt-8 border-t border-slate-800 text-center md:text-left flex flex-col md:flex-row justify-between items-center gap-4 text-sm font-medium text-slate-500">
+                <p>© 2026 Yapas. Todos los derechos reservados.</p>
+                <div class="flex items-center gap-6">
+                    <span>Versión 1.0.0</span>
+                    <span class="flex items-center gap-1">
+                        Hecho con <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                            fill="currentColor" class="text-yapas-orange">
+                            <path
+                                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                        </svg> para el barrio
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+</body>
+
+<script src="./js/config_tailwind.js"></script>
+<script src="./js/script.js"></script>
+
+</html>
