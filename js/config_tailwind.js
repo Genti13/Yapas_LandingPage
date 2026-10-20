@@ -11,7 +11,8 @@ tailwind.config = {
                 }
             },
             fontFamily: {
-                sans: ['Fredoka', 'sans-serif'],
+                sans: ['"Nunito Sans"', 'sans-serif'],
+                fredoka: ['Fredoka', 'sans-serif'],   
             }
         }
     }
